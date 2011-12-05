@@ -1,0 +1,127 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-12-05 20:48+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: fields.py:10
+msgid "Please enter in a valid credit card number."
+msgstr "Vinsamlegast sláðu inn gilt kortanúmer"
+
+#: forms.py:39
+msgid "Card Number"
+msgstr "Kortanúmer"
+
+#: forms.py:41
+msgid "Month"
+msgstr "Mánuður"
+
+#: forms.py:43
+msgid "Year"
+msgstr "Ár"
+
+#: forms.py:45
+msgid "CCV Number"
+msgstr "Öryggiskóði"
+
+#: forms.py:58
+msgid "Expiration date is invalid"
+msgstr "Rangur gildistími"
+
+#: forms.py:89
+msgid "Payment Information"
+msgstr "Korta upplýsingar"
+
+#: forms.py:95
+msgid "Checkout"
+msgstr "Borga"
+
+#: models.py:8
+msgid "Danish Krona"
+msgstr "Dönsk króna"
+
+#: models.py:9
+msgid "Euro"
+msgstr "Evra"
+
+#: models.py:10
+msgid "Sterling Pound"
+msgstr "Pund"
+
+#: models.py:11
+msgid "Icelandic Krona"
+msgstr "Íslensk króna"
+
+#: models.py:12
+msgid "Norwegian Krona"
+msgstr "Norsk króna"
+
+#: models.py:13
+msgid "Swedish Krona"
+msgstr "Sænsk króna"
+
+#: models.py:14
+msgid "United States Dollar"
+msgstr "Amerískur dollari"
+
+#: models.py:18
+msgid "Not Sent"
+msgstr "Ekki sent"
+
+#: models.py:19
+msgid "Error"
+msgstr "Villa"
+
+#: models.py:20
+msgid "Successful"
+msgstr "Tókst"
+
+#: models.py:38
+msgid "Reference"
+msgstr "Tilvísun"
+
+#: models.py:41
+msgid "Date Created"
+msgstr "Dags vistað"
+
+#: models.py:43
+msgid "Date Edited"
+msgstr "Dags breytt"
+
+#: models.py:53
+msgid "Amount"
+msgstr "Upphæð"
+
+#: models.py:55
+msgid "Currency"
+msgstr "Mynt"
+
+#: models.py:58
+msgid "Currency Exponent"
+msgstr "Myntvísir"
+
+#: models.py:60
+msgid "State"
+msgstr "Staða"
+
+#: models.py:68
+msgid "Korta Order"
+msgstr "Kortupöntun"
+
+#: models.py:69
+msgid "Korta Orders"
+msgstr "Kortupantanir"
