@@ -88,7 +88,7 @@ class PaymentInfoForm(forms.Form):
             Fieldset(
                 _(u'Payment Information'),
                 'number',
-                Row('',''),
+                Row('expiration_month','expiration_year'),
                 'ccv',
             ),
             ButtonHolder(
