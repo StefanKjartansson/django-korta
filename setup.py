@@ -44,6 +44,7 @@ setup(
         'django-nose==0.1.3',
         'nose==1.1.2',
         'wsgiref==0.1.2',
+        'django-uni-form==0.9.0',
     ],
     package_data = {
     },
