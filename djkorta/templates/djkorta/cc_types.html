@@ -1,0 +1,7 @@
+<ul id="available-card-types">
+  {% for k,v in available_cards %}
+  <li>
+    <span class="card {{k|slugify}}" title="{{k}}" data-match="{{v}}" />
+  </li>
+  {% endfor %}
+</ul>

@@ -87,13 +87,14 @@ class PaymentInfoForm(forms.Form):
         helper.layout = Layout(
             Fieldset(
                 _(u'Payment Information'),
+                HTML('{% include "djkorta/cc_types.html" %}'),
                 'number',
                 Row('expiration_month','expiration_year'),
                 'ccv',
             ),
             ButtonHolder(
                 Submit('submit', _(u'Checkout'),
-                    css_class='button white')
+                    css_class='button')
             )
         )
         return helper
