@@ -12,6 +12,7 @@ DATABASES = {
 }
 
 INSTALLED_APPS += ('djkorta',)
+INSTALLED_APPS += ('uni_form',)
 
 INSTALLED_APPS += ('django_nose',)
 
