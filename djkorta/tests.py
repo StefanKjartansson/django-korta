@@ -16,7 +16,7 @@ class PaymentInfoFormTest(TestCase):
         self.assertEqual(f.is_valid(), True)
 
         #charge $1
-        order = f.process(100, currency='ISK')
+        order = f.process(100, currency='USD')
         self.assertEqual(order.state, 'SUCCESS')
 
     def test_invalid_creditcard(self):
