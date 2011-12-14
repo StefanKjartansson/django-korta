@@ -7,7 +7,7 @@ from .utils import make_reference, CURRENCY_CODES
 AVAILABLE_CURRENCIES = (
     ('DDK', _(u'Danish Krona')),
     ('EUR', _(u'Euro')),
-    ('GBP', _(u'Sterling Pound')),
+    ('GBP', _(u'Pound Sterling')),
     ('ISK', _(u'Icelandic Krona')),
     ('NOK', _(u'Norwegian Krona')),
     ('SEK', _(u'Swedish Krona')),
@@ -48,7 +48,11 @@ class ReferenceCommon(models.Model):
         ordering = ['-date_created', ]
 
 
-class OrderInfo(ReferenceCommon):
+class Customer(ReferenceCommon):
+    expires = models.DateField(verbose_name=_(u'Date Expires'))
+
+
+class Order(ReferenceCommon):
 
     amount = models.DecimalField(verbose_name=_(u'Amount'),
         max_digits=19, decimal_places=2)
@@ -67,3 +71,8 @@ class OrderInfo(ReferenceCommon):
     class Meta:
         verbose_name = _(u'Korta Order')
         verbose_name_plural = _(u'Korta Orders')
+
+
+class CustomerOrder(models.Model):
+    customer = models.ForeignKey(Customer)
+    order = models.ForeignKey(Order)
