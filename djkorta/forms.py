@@ -10,7 +10,7 @@ from uni_form.layout import *
 
 from .fields import CreditCardField
 from .utils import get_default_client
-from .models import OrderInfo
+from .models import Order
 
 
 #01 - 1 ... 12 - 12
@@ -70,7 +70,7 @@ class PaymentInfoForm(forms.Form):
         return order
 
     def process(self, amount, currency='ISK', currency_exponent=2):
-        o = OrderInfo(amount=amount, _currency=currency,
+        o = Order(amount=amount, _currency=currency,
             currency_exponent=currency_exponent)
         o.save()
         return self.process_order(o)
