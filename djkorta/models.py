@@ -1,7 +1,9 @@
+from decimal import Decimal
+
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from .utils import make_reference, CURRENCY_CODES
+from .settings import *
 
 
 AVAILABLE_CURRENCIES = (
@@ -19,6 +21,10 @@ ORDER_STATES = (
     ('ERROR', _(u'Error')),
     ('SUCCESS', _(u'Successful')),
 )
+
+
+def process_order(amount):
+    pass
 
 
 class ReferenceCommon(models.Model):
@@ -51,13 +57,28 @@ class ReferenceCommon(models.Model):
 class Customer(ReferenceCommon):
     expires = models.DateField(verbose_name=_(u'Date Expires'))
 
+    def charge_amount(self, amount,
+            currency=KORTA_DEFAULT_CURRENCY, currency_exponent=2):
+
+        pass
+
 
 class Order(ReferenceCommon):
 
+    def __init__(self, *args, **kwargs):
+        super(Order, self).__init__(*args, **kwargs)
+        self.amount = (Decimal('1%s' % ('0' * self.currency_exponent))
+            * Decimal(str(self.amount)))
+
     amount = models.DecimalField(verbose_name=_(u'Amount'),
         max_digits=19, decimal_places=2)
-    _currency = models.CharField(verbose_name=_(u'Currency'),
-        max_length=3, choices=AVAILABLE_CURRENCIES)
+
+    _currency = models.CharField(
+        verbose_name=_(u'Currency'),
+        max_length=3,
+        choices=AVAILABLE_CURRENCIES,
+        default=KORTA_DEFAULT_CURRENCY)
+
     currency_exponent = models.IntegerField(
         verbose_name=_(u'Currency Exponent'),
         default=2)
