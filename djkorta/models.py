@@ -23,10 +23,6 @@ ORDER_STATES = (
 )
 
 
-def process_order(amount):
-    pass
-
-
 class ReferenceCommon(models.Model):
     """
     Abstract model for Korta related classes, all reference
@@ -56,11 +52,6 @@ class ReferenceCommon(models.Model):
 
 class Customer(ReferenceCommon):
     expires = models.DateField(verbose_name=_(u'Date Expires'))
-
-    def charge_amount(self, amount,
-            currency=KORTA_DEFAULT_CURRENCY, currency_exponent=2):
-
-        pass
 
 
 class Order(ReferenceCommon):
