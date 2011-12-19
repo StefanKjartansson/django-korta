@@ -9,7 +9,7 @@ from uni_form.helper import FormHelper
 from uni_form.layout import *
 
 from .fields import CreditCardField
-from .utils import get_default_client
+from .settings import get_default_client
 from .models import Order
 
 
