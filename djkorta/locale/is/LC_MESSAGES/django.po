@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-05 20:48+0000\n"
+"POT-Creation-Date: 2011-12-23 21:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,82 +46,87 @@ msgstr "Rangur gildistími"
 msgid "Payment Information"
 msgstr "Korta upplýsingar"
 
-#: forms.py:95
+#: forms.py:96
 msgid "Checkout"
 msgstr "Borga"
 
-#: models.py:8
+#: models.py:10
 msgid "Danish Krona"
 msgstr "Dönsk króna"
 
-#: models.py:9
+#: models.py:11
 msgid "Euro"
 msgstr "Evra"
 
-#: models.py:10
-msgid "Sterling Pound"
-msgstr "Pund"
+#: models.py:12
+msgid "Pound Sterling"
+msgstr "Sterlingspund"
 
-#: models.py:11
+#: models.py:13
 msgid "Icelandic Krona"
 msgstr "Íslensk króna"
 
-#: models.py:12
+#: models.py:14
 msgid "Norwegian Krona"
 msgstr "Norsk króna"
 
-#: models.py:13
+#: models.py:15
 msgid "Swedish Krona"
 msgstr "Sænsk króna"
 
-#: models.py:14
+#: models.py:16
 msgid "United States Dollar"
-msgstr "Amerískur dollari"
+msgstr "Amerískur dollar"
 
-#: models.py:18
+#: models.py:20
 msgid "Not Sent"
 msgstr "Ekki sent"
 
-#: models.py:19
+#: models.py:21
 msgid "Error"
 msgstr "Villa"
 
-#: models.py:20
+#: models.py:22
 msgid "Successful"
 msgstr "Tókst"
 
-#: models.py:38
+#: models.py:40
 msgid "Reference"
 msgstr "Tilvísun"
 
-#: models.py:41
+#: models.py:43
 msgid "Date Created"
 msgstr "Dags vistað"
 
-#: models.py:43
+#: models.py:45
 msgid "Date Edited"
 msgstr "Dags breytt"
 
-#: models.py:53
+#: models.py:54
+#, fuzzy
+msgid "Date Expires"
+msgstr "Dags breytt"
+
+#: models.py:64
 msgid "Amount"
 msgstr "Upphæð"
 
-#: models.py:55
+#: models.py:68
 msgid "Currency"
 msgstr "Mynt"
 
-#: models.py:58
+#: models.py:74
 msgid "Currency Exponent"
 msgstr "Myntvísir"
 
-#: models.py:60
+#: models.py:76
 msgid "State"
 msgstr "Staða"
 
-#: models.py:68
+#: models.py:84
 msgid "Korta Order"
 msgstr "Kortupöntun"
 
-#: models.py:69
+#: models.py:85
 msgid "Korta Orders"
 msgstr "Kortupantanir"
