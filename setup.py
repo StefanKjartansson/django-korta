@@ -46,9 +46,7 @@ setup(
         'wsgiref==0.1.2',
         'django-uni-form==0.9.0',
     ],
-    package_data = {
-        'djkorta': ['fixtures/*.json', 'templates/*.*',],
-    },
+    include_package_data=True,
     cmdclass = {"test": RunTests},
     author="stefan",
     author_email="stefan@Stefan-Kjartanssons-MacBook-Pro.local",
