@@ -47,6 +47,7 @@ setup(
         'django-uni-form==0.9.0',
     ],
     package_data = {
+        'djkorta': ['fixtures/*.json', 'templates/*.*',],
     },
     cmdclass = {"test": RunTests},
     author="stefan",
