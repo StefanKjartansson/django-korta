@@ -5,9 +5,6 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext as _
 
-from uni_form.helper import FormHelper
-from uni_form.layout import *
-
 from .fields import CreditCardField
 from .settings import get_default_client
 from .models import Order
@@ -74,27 +71,3 @@ class PaymentInfoForm(forms.Form):
             currency_exponent=currency_exponent)
         o.save()
         return self.process_order(o)
-
-    @property
-    def helper(self):
-        helper = FormHelper()
-
-        helper.form_id = 'id-payment-form'
-        helper.form_class = 'korta-form'
-        helper.form_method = 'post'
-        helper.form_action = 'submit_payment'
-
-        helper.layout = Layout(
-            Fieldset(
-                _(u'Payment Information'),
-                HTML('{% include "djkorta/cc_types.html" %}'),
-                'number',
-                Row('expiration_month','expiration_year'),
-                'ccv',
-            ),
-            ButtonHolder(
-                Submit('submit', _(u'Checkout'),
-                    css_class='button')
-            )
-        )
-        return helper
