@@ -1,5 +1,5 @@
 <ul id="available-card-types">
-  {% for k,v in available_cards %}
+  {% for k,v in available_cards.items %}
   <li>
     <span class="card {{k|slugify}}" title="{{k}}" data-match="{{v}}" />
   </li>
