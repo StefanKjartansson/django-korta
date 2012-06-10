@@ -1,9 +1,22 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -
+"""
+djkorta.models
+~~~~~~~~~~~~~~
+
+"""
+from __future__ import absolute_import
+
 from decimal import Decimal
 
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from .settings import *
+from model_utils.models import StatusModel
+from model_utils import Choices
+
+from . import korta_reference, CURRENCY_CODES
+from .conf import settings
 
 
 AVAILABLE_CURRENCIES = (
@@ -16,12 +29,6 @@ AVAILABLE_CURRENCIES = (
     ('USD', _(u'United States Dollar')),
 )
 
-ORDER_STATES = (
-    ('NOT_SENT', _(u'Not Sent')),
-    ('ERROR', _(u'Error')),
-    ('SUCCESS', _(u'Successful')),
-)
-
 
 class ReferenceCommon(models.Model):
     """
@@ -31,9 +38,9 @@ class ReferenceCommon(models.Model):
 
     def __init__(self, *args, **kwargs):
         if not 'reference' in kwargs.keys():
-            ref = make_reference()
+            ref = korta_reference()
             while self.__class__.objects.filter(reference=ref).exists():
-                ref = make_reference()
+                ref = korta_reference()
             kwargs['reference'] = ref
         super(ReferenceCommon, self).__init__(*args, **kwargs)
 
@@ -54,37 +61,53 @@ class Customer(ReferenceCommon):
     expires = models.DateField(verbose_name=_(u'Date Expires'))
 
 
-class Order(ReferenceCommon):
+class Order(StatusModel, ReferenceCommon):
 
-    def __init__(self, *args, **kwargs):
-        super(Order, self).__init__(*args, **kwargs)
-        self.amount = (Decimal('1%s' % ('0' * self.currency_exponent))
-            * Decimal(str(self.amount)))
+    STATUS = Choices(
+        ('NOT_SENT', _(u'Not Sent')),
+        ('ERROR', _(u'Error')),
+        ('SUCCESS', _(u'Successful')),
+    )
 
-    amount = models.DecimalField(verbose_name=_(u'Amount'),
-        max_digits=19, decimal_places=2)
+    @property
+    def amount(self):
+        return Decimal(str(self.decimal_amount)) * \
+            self.decimal_exponent
 
-    _currency = models.CharField(
-        verbose_name=_(u'Currency'),
-        max_length=3,
-        choices=AVAILABLE_CURRENCIES,
-        default=KORTA_DEFAULT_CURRENCY)
+    @amount.setter
+    def amount(self, value):
+        self.decimal_amount = Decimal(value) / self.decimal_exponent
 
-    currency_exponent = models.IntegerField(
-        verbose_name=_(u'Currency Exponent'),
-        default=2)
-    state = models.CharField(verbose_name=_(u'State'), max_length=16,
-        choices=ORDER_STATES, default='NOT_SENT')
+    @property
+    def decimal_exponent(self):
+        return Decimal('1%s' % ('0' * self.currency_exponent))
 
     @property
     def currency(self):
-        return CURRENCY_CODES[self._currency]
+        return CURRENCY_CODES[self.currency_code]
 
     class Meta:
         verbose_name = _(u'Korta Order')
         verbose_name_plural = _(u'Korta Orders')
 
+    decimal_amount = models.DecimalField(verbose_name=_(u'Amount'),
+        max_digits=19, decimal_places=2)
+
+    currency_code = models.CharField(
+        verbose_name=_(u'Currency'),
+        max_length=3,
+        choices=AVAILABLE_CURRENCIES,
+        default=settings.KORTA_DEFAULT_CURRENCY)
+
+    currency_exponent = models.IntegerField(
+        verbose_name=_(u'Currency Exponent'),
+        default=2)
+
 
 class CustomerOrder(models.Model):
     customer = models.ForeignKey(Customer)
     order = models.ForeignKey(Order)
+    date_created = models.DateTimeField(verbose_name=_(u'Date Created'),
+        auto_now_add=True)
+    date_edited = models.DateTimeField(verbose_name=_(u'Date Edited'),
+        auto_now=True)
