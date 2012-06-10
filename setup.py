@@ -131,19 +131,26 @@ class RunTests(Command):
         os.chdir(this_dir)
 
 
+install_requires = [
+    'django>=1.3',
+    'django-appconf>=0.5',
+    'korta>=0.1.4',
+    'django-model-utils>=1.1.0',
+]
+
+tests_require = [
+    'django-nose==1.1',
+]
+
+
 setup(
-    name = "djkorta",
-    version = "0.1",
-    packages = find_packages(exclude=['test_project']),
-    install_requires = [
-        'Django==1.3.1',
-        'coverage==3.5.1',
-        'django-nose==0.1.3',
-        'nose==1.1.2',
-        'wsgiref==0.1.2',
-    ],
+    name="djkorta",
+    version="0.1",
+    packages=find_packages(exclude=['test_project']),
+    install_requires=install_requires,
+    tests_require=tests_require,
     package_data=find_package_data(),
-    cmdclass = {"test": RunTests},
+    cmdclass={"test": RunTests},
     author="Stefan Kjartansson",
     author_email="esteban.supreme@gmail.com",
     description="Django wrapper for Icelandic payment gateway Korta",
@@ -155,5 +162,5 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
     ],
-    zip_safe = False,
+    zip_safe=False,
 )
