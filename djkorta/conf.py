@@ -5,6 +5,8 @@
 djkorta.conf
 ~~~~~~~~~~~~
 
+:copyright: (c) 2012 by the Stefán Kjartansson, see AUTHORS for more details.
+:license: BSD, see LICENSE for more details.
 """
 from django.conf import settings
 from appconf import AppConf

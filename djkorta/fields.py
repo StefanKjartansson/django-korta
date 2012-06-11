@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -
+"""
+djkorta.fields
+~~~~~~~~~~~~~~
+
+:copyright: (c) 2012 by the Stefán Kjartansson, see AUTHORS for more details.
+:license: BSD, see LICENSE for more details.
+"""
 from django import forms
 from django.utils.checksums import luhn
 from django.utils.translation import ugettext as _

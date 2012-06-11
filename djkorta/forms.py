@@ -3,6 +3,9 @@
 """
 djkorta.forms
 ~~~~~~~~~~~~~
+
+:copyright: (c) 2012 by the Stefán Kjartansson, see AUTHORS for more details.
+:license: BSD, see LICENSE for more details.
 """
 from __future__ import absolute_import
 
@@ -68,7 +71,7 @@ class PaymentInfoForm(forms.Form):
 
     def process_order(self, order):
         data = self.clean()
-        order.state = ('SUCCESS' if client.one_off(order,
+        order.status = ('SUCCESS' if client.one_off(order,
             CreditCard(number=str(data['number']),
                 expires=data['expiration_date'].strftime('%y%m'),
                 ccv=data['ccv']))
