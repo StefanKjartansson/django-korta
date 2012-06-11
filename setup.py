@@ -140,12 +140,13 @@ install_requires = [
 
 tests_require = [
     'django-nose==1.1',
+    'coverage==3.5.2',
 ]
 
 
 setup(
     name="djkorta",
-    version="0.1",
+    version="0.2",
     packages=find_packages(exclude=['test_project']),
     install_requires=install_requires,
     tests_require=tests_require,
