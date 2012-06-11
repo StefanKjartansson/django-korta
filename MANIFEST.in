@@ -1,0 +1,5 @@
+include setup.py README.rst MANIFEST.in LICENSE
+recursive-include djkorta/locale *
+recursive-include djkorta/static *
+recursive-include djkorta/templates *
+global-exclude *~
