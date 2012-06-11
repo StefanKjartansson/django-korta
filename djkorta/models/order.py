@@ -1,22 +1,27 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -
 """
-djkorta.models
-~~~~~~~~~~~~~~
+djkorta.models.order
+~~~~~~~~~~~~~~~~~~~~
 
+:copyright: (c) 2012 by the Stefán Kjartansson, see AUTHORS for more details.
+:license: BSD, see LICENSE for more details.
 """
 from __future__ import absolute_import
 
 from decimal import Decimal
 
 from django.db import models
+from django.db.models.query import QuerySet
 from django.utils.translation import ugettext as _
 
+from model_utils.managers import PassThroughManager
 from model_utils.models import StatusModel
 from model_utils import Choices
 
-from . import korta_reference, CURRENCY_CODES
-from .conf import settings
+from .base import ReferenceCommon
+from .. import CURRENCY_CODES
+from ..conf import settings
 
 
 AVAILABLE_CURRENCIES = (
@@ -30,35 +35,21 @@ AVAILABLE_CURRENCIES = (
 )
 
 
-class ReferenceCommon(models.Model):
+class OrderException(Exception):
     """
-    Abstract model for Korta related classes, all reference
-    generation is delegated here.
     """
 
-    def __init__(self, *args, **kwargs):
-        if not 'reference' in kwargs.keys():
-            ref = korta_reference()
-            while self.__class__.objects.filter(reference=ref).exists():
-                ref = korta_reference()
-            kwargs['reference'] = ref
-        super(ReferenceCommon, self).__init__(*args, **kwargs)
 
-    reference = models.CharField(verbose_name=_(u'Reference'), max_length=20,
-        unique=True, db_index=True)
+class OrderQuerySet(QuerySet):
 
-    date_created = models.DateTimeField(verbose_name=_(u'Date Created'),
-        auto_now_add=True)
-    date_edited = models.DateTimeField(verbose_name=_(u'Date Edited'),
-        auto_now=True)
+    def by_currency_code(self, currency_code):
+        return self.filter(currency_code=currency_code)
 
-    class Meta:
-        abstract = True
-        ordering = ['-date_created', ]
+    def successful(self):
+        return self.filter(status=Order.STATUS.SUCCESS)
 
-
-class Customer(ReferenceCommon):
-    expires = models.DateField(verbose_name=_(u'Date Expires'))
+    def failed(self):
+        return self.filter(status=Order.STATUS.ERROR)
 
 
 class Order(StatusModel, ReferenceCommon):
@@ -76,6 +67,8 @@ class Order(StatusModel, ReferenceCommon):
 
     @amount.setter
     def amount(self, value):
+        if self.status == Order.STATUS.SUCCESS:
+            raise OrderException('Order already fulfilled')
         self.decimal_amount = Decimal(value) / self.decimal_exponent
 
     @property
@@ -86,9 +79,15 @@ class Order(StatusModel, ReferenceCommon):
     def currency(self):
         return CURRENCY_CODES[self.currency_code]
 
+    def process(self):
+        pass
+
+    objects = PassThroughManager.for_queryset_class(OrderQuerySet)()
+
     class Meta:
         verbose_name = _(u'Korta Order')
         verbose_name_plural = _(u'Korta Orders')
+        app_label = 'djkorta'
 
     decimal_amount = models.DecimalField(verbose_name=_(u'Amount'),
         max_digits=19, decimal_places=2)
@@ -102,12 +101,3 @@ class Order(StatusModel, ReferenceCommon):
     currency_exponent = models.IntegerField(
         verbose_name=_(u'Currency Exponent'),
         default=2)
-
-
-class CustomerOrder(models.Model):
-    customer = models.ForeignKey(Customer)
-    order = models.ForeignKey(Order)
-    date_created = models.DateTimeField(verbose_name=_(u'Date Created'),
-        auto_now_add=True)
-    date_edited = models.DateTimeField(verbose_name=_(u'Date Edited'),
-        auto_now=True)
