@@ -42,10 +42,12 @@ class PaymentInfoFormTest(TestCase):
             'ccv': 123,
         }
         self.assertEqual(PaymentInfoForm(post_data).is_valid(), False)
+        self.assertEqual(Order.objects.failed().count(), 0)
 
     def test_customer_order(self):
         c = Customer(credit_card=CreditCard('4571999400007492', 5, 14, 123))
         c.save()
         self.assertTrue(c.charge(2000))
         self.assertEqual(c.orders.count(), 1)
+        self.assertEqual(c.order_count, 1)
         c.delete()
