@@ -9,6 +9,8 @@ djkorta.models.customer
 """
 from __future__ import absolute_import
 
+import datetime
+
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
@@ -22,7 +24,11 @@ from .order import Order
 
 
 class Customer(ReferenceCommon):
+
     expires = models.DateField(verbose_name=_(u'Date Expires'),
+        null=True, blank=True)
+
+    registered = models.DateField(verbose_name=_(u'Date Registered'),
         null=True, blank=True)
 
     def __init__(self, *args, **kwargs):
@@ -37,6 +43,10 @@ class Customer(ReferenceCommon):
     @property
     def orders(self):
         return CustomerOrder.objects.filter(customer=self)
+
+    @property
+    def order_count(self):
+        return self.orders.count()
 
     class Meta:
         verbose_name = _(u'Korta Customer')
@@ -65,6 +75,8 @@ def register_customer(sender, **kwargs):
     if not hasattr(instance, 'credit_card'):
         raise Exception('Customer created without initial credit card')
     client.save_account(instance)
+    instance.registered = datetime.datetime.now()
+    instance.save()
 
 
 @receiver(post_delete, sender=Customer)
