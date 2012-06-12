@@ -17,6 +17,7 @@ class KortaConf(AppConf):
 
     HOST = 'test.kortathjonustan.is'
     PORT = '8443'
+    CREDIT_CARD_YEARS = 15
 
     CARD_TYPES = {
         'Visa': '/^4/',
