@@ -79,9 +79,6 @@ class Order(StatusModel, ReferenceCommon):
     def currency(self):
         return CURRENCY_CODES[self.currency_code]
 
-    def process(self):
-        pass
-
     objects = PassThroughManager.for_queryset_class(OrderQuerySet)()
 
     class Meta:
