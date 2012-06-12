@@ -33,7 +33,7 @@ def cc_clean(self):
     data = self.cleaned_data
     if not data.get('number', None):
         raise forms.ValidationError(
-            _(u'Inavlid number'))
+            _(u'Invalid number'))
     exp_year = data.get('expiration_year', None)
     if not exp_year:
         raise forms.ValidationError(
