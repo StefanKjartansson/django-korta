@@ -139,8 +139,8 @@ install_requires = [
 ]
 
 tests_require = [
-    'django-nose==1.1',
-    'coverage==3.5.2',
+    'django-nose==1.2',
+    'coverage==3.7',
 ]
 
 
